@@ -1,0 +1,27 @@
+{
+  "short_name": "IPIRANGA AI",
+  "name": "IPIRANGA AI - Tratamento de Caldo",
+  "description": "Sistema de Inteligência Operacional para Usinas Sucroenergéticas",
+  "icons": [
+    {
+      "src": "logo-ipiranga.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo-ipiranga.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1e3a5f",
+  "background_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": ["business", "productivity"],
+  "lang": "pt-BR"
+}
