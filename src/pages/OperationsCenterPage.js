@@ -294,6 +294,9 @@ export default function OperationsCenterPage(){
   const [error,setError]=useState("");
   const [loading,setLoading]=useState(true);
   const [refreshedAt,setRefreshedAt]=useState("");
+  const [liveChannel,setLiveChannel]=useState("AGUARDANDO");
+  const [livePacketAt,setLivePacketAt]=useState("");
+
   const refresh=useCallback(async()=>{
     const resources=["/api/ops/status","/api/ops/catalog","/api/ops/telemetry","/api/ops/overview","/api/ops/alarms"];
     const names=["status","catalog","telemetry","overview","alarms"];
@@ -320,6 +323,46 @@ export default function OperationsCenterPage(){
     return()=>window.clearInterval(timer);
   },[refresh]);
 
+  useEffect(()=>{
+    const token=window.localStorage.getItem("ipiranga_token");
+    if(!token || !window.WebSocket){setLiveChannel("INDISPONIVEL");return;}
+    let closed=false;
+    let timer=null;
+    let socket=null;
+    let attempts=0;
+    const connect=()=>{
+      if(closed)return;
+      const base=(API || window.location.origin).replace(/\\/$/,"");
+      const url=base.replace(/^http/i,"ws")+"/api/ops/ws";
+      setLiveChannel("CONECTANDO");
+      try{socket=new WebSocket(url);}catch(_){setLiveChannel("INDISPONIVEL");return;}
+      socket.onopen=()=>{
+        if(closed)return;
+        socket.send(JSON.stringify({token}));
+      };
+      socket.onmessage=event=>{
+        try{
+          const packet=JSON.parse(event.data);
+          if(packet.type!=="industrial_telemetry"||!packet.readings)return;
+          attempts=0;
+          setTelemetry(old=>({...old,...packet.readings}));
+          setLivePacketAt(packet.observed_server_time||"");
+          setLiveChannel("ATIVO");
+        }catch(_){setLiveChannel("FORMATO INVALIDO");}
+      };
+      socket.onclose=event=>{
+        if(closed)return;
+        setLiveChannel("OFFLINE");
+        if(event.code===1008)return;
+        attempts=Math.min(5,attempts+1);
+        timer=window.setTimeout(connect,Math.min(30000,1000*(2**attempts)));
+      };
+      socket.onerror=()=>setLiveChannel("OFFLINE");
+    };
+    connect();
+    return()=>{closed=true;if(timer)window.clearTimeout(timer);socket?.close();};
+  },[]);
+
   const openSector=id=>{setSelectedArea(id);setTab("equipment");};
   const live=Boolean(status?.telemetry_state==="RECENT_REAL_DATA");
   const pageTitle=tabs.find(t=>t[0]===tab)?.[1]||"COI";
@@ -334,11 +377,12 @@ export default function OperationsCenterPage(){
       <div className="ind-righthead">
         <div className="ind-pills">
           <Badge tone={live?"ok":"warn"}><Activity size={12}/>{live?"TELEMETRIA RECENTE":"AGUARDANDO DADOS REAIS"}</Badge>
+          <Badge tone={liveChannel==="ATIVO"?"ok":"warn"}><Radar size={12}/> WEB: {liveChannel}</Badge>
           <Badge tone="warn"><Network size={12}/> PLC NÃO VERIFICADO</Badge>
           <Badge tone="danger"><LockKeyhole size={12}/> ESCRITA BLOQUEADA</Badge>
         </div>
         <div className="ind-inline">
-          <span className="ind-small">Atualizado: {dateBR(refreshedAt)}</span>
+          <span className="ind-small">Atualizado: {dateBR(livePacketAt||refreshedAt)}</span>
           <button className="ind-button ind-button-quiet" type="button" onClick={refresh}><RefreshCcw size={13} style={{display:"inline",marginRight:6}}/>Atualizar</button>
         </div>
       </div>
