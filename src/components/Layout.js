@@ -26,6 +26,7 @@ import {
   ClipboardList,
   ChevronRight,
   Network,
+  MonitorDot,
 } from "lucide-react";
 import { cn, formatDate } from "../lib/utils";
 
@@ -36,6 +37,12 @@ const navItems = [
     label: "Dashboard",
     path: "/dashboard",
     icon: LayoutDashboard,
+    roles: ["operator", "supervisor", "admin"],
+  },
+  {
+    label: "COI Industrial",
+    path: "/coi",
+    icon: MonitorDot,
     roles: ["operator", "supervisor", "admin"],
   },
   {
