@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# USINA IPIRANGA — CENTRO DE OPERAÇÕES INTELIGENTE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Plataforma web industrial em React. Acesse /operations após login.
 
-## Available Scripts
+## Módulos implementados
 
-In the project directory, you can run:
+- COI: áreas, inventário, saúde do gateway, indicadores, gráfico por área e alarmes.
+- Gráficos: 4 tendências independentes de medições reais, 1h/8h/24h/7d/30d, limites de aviso e exportação CSV.
+- Tanques: leitura real válida, sem gerar níveis fictícios.
+- Equipamentos: buscas, filtro por área/categoria e tags vinculadas.
+- Controle: PV/SP/MV; modo manual, supervisório e automático registrado como PLANEJAMENTO, sem escrita física.
+- Alarmes: histórico, prioridades e reconhecimento auditado.
+- Engenharia: cadastro de áreas, equipamentos, tags, limites e malhas.
+- IA: análise externa opcional apenas com aprovação da empresa e dados reais.
+- Auditoria: registros de cadastros, mudanças pretendidas e reconhecimentos.
+- Comunicação: WebSocket autenticado com dados persistidos, mais consulta HTTP de reserva.
 
-### `npm start`
+## Instalação local
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Instale Node.js 20+ e execute `npm ci --legacy-peer-deps`.
+2. Crie o arquivo `.env` local com `REACT_APP_BACKEND_URL=http://localhost:8000`.
+3. Inicie o backend FastAPI do projeto `ipiranga-backend` e execute `npm start`.
+4. Após login, abra `http://localhost:3000/operations`.
+5. Para gerar versão de distribuição web, execute `npm run build`.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Segurança e limitações
 
-### `npm test`
+Não existem dados de processo fictícios, comandos para PLC nem integração com CLP/SCADA nesta fase.
+Sem telemetria real, os gráficos ficam vazios e o sistema informa que aguarda integração.
+Escolher modo AUTOMÁTICO não ativa controle físico: fica `NAO_COMISSIONADO` até validação OT.
+O WebSocket não é determinístico e não pode controlar equipamentos industriais.
+Segredos expostos em arquivos `.env` do histórico antigo devem ser revogados e substituídos.
+Implantação requer TLS/HTTPS, MongoDB seguro, RBAC, aprovação de segurança e comissionamento.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Esta plataforma é um projeto de desenvolvimento, não uma implantação industrial oficialmente validada.

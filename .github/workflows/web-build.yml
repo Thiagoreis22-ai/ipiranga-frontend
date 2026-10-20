@@ -1,0 +1,21 @@
+name: Compilacao web industrial
+on:
+  pull_request:
+  push:
+    branches:
+      - feature/plataforma-web-integracao-segura
+jobs:
+  react-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Instalar dependencias
+        run: npm ci --legacy-peer-deps
+      - name: Compilar interface web
+        env:
+          CI: "false"
+          REACT_APP_BACKEND_URL: "https://api.example.invalid"
+        run: npm run build

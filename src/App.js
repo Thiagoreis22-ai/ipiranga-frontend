@@ -6,6 +6,8 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Layout from "./components/Layout";
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
+import IndustrialConnectionPage from "./pages/IndustrialConnectionPage";
+import OperationsCenterPage from "./pages/OperationsCenterPage";
 import AssistantPage from "./pages/AssistantPage";
 import OccurrencesPage from "./pages/OccurrencesPage";
 import ReportsPage from "./pages/ReportsPage";
@@ -35,7 +37,7 @@ const ProtectedRoute = ({ children, requireSupervisor = false }) => {
   }
 
   if (requireSupervisor && !isSupervisor) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/operations" replace />;
   }
 
   return <Layout>{children}</Layout>;
@@ -53,7 +55,7 @@ const PublicRoute = ({ children }) => {
   }
 
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/operations" replace />;
   }
 
   return children;
@@ -75,6 +77,22 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/operations"
+        element={
+          <ProtectedRoute>
+            <OperationsCenterPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/industrial"
+        element={
+          <ProtectedRoute>
+            <IndustrialConnectionPage />
           </ProtectedRoute>
         }
       />
@@ -142,8 +160,8 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      <Route path="/" element={<Navigate to="/operations" replace />} />
+      <Route path="*" element={<Navigate to="/operations" replace />} />
     </Routes>
   );
 }
