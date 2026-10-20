@@ -310,10 +310,10 @@ export const Layout = ({ children }) => {
             />
             <div>
               <h1 className="font-heading font-bold text-lg tracking-tight">
-                IPIRANGA AI
+                USINA IPIRANGA
               </h1>
               <p className="text-xs text-muted-foreground">
-                Tratamento de Caldo
+                Agroindustrial · Açúcar e Álcool
               </p>
             </div>
           </div>
@@ -376,7 +376,7 @@ export const Layout = ({ children }) => {
               alt="Ipiranga AI" 
               className="h-8 w-auto object-contain"
             />
-            <span className="font-heading font-bold">IPIRANGA AI</span>
+            <span className="font-heading font-bold">USINA IPIRANGA</span>
           </div>
           <div className="flex items-center gap-2">
             {unreadCount > 0 && (
