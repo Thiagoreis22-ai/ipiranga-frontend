@@ -47,7 +47,7 @@ export default function LoginPage() {
 
     const result = await login(matricula, password);
     if (result.success) {
-      navigate("/dashboard");
+      navigate("/operations");
     } else {
       setError(result.error);
     }
@@ -58,18 +58,12 @@ export default function LoginPage() {
     <div
       className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden"
       style={{
-        backgroundImage: `linear-gradient(to bottom, hsl(222 47% 11% / 0.95), hsl(222 47% 11% / 0.98)), url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        backgroundColor: "#101820",
+        backgroundImage: "linear-gradient(135deg, #101820 0%, #182635 100%)",
+
       }}
       data-testid="login-page"
     >
-      <div
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: `url('https://www.transparenttextures.com/patterns/carbon-fibre.png')`,
-        }}
-      />
 
       <div className="w-full max-w-md relative z-10">
         {/* Logo Header */}
@@ -82,10 +76,10 @@ export default function LoginPage() {
             />
           </div>
           <h1 className="font-heading text-3xl font-bold tracking-tight text-white uppercase">
-            IPIRANGA AI
+            USINA IPIRANGA
           </h1>
           <p className="text-muted-foreground mt-2">
-            Inteligência Operacional do Tratamento de Caldo
+            Agroindustrial · Açúcar e Álcool · Centro de Operações Inteligente
           </p>
         </div>
 
@@ -126,8 +120,7 @@ export default function LoginPage() {
             <AlertTitle className="text-emerald-500">Administrador Criado!</AlertTitle>
             <AlertDescription className="space-y-2 mt-2">
               <p><strong>Matrícula:</strong> <code className="bg-background/50 px-2 py-1 rounded">{setupResult.matricula}</code></p>
-              <p><strong>Senha:</strong> <code className="bg-background/50 px-2 py-1 rounded">{setupResult.senha_inicial}</code></p>
-              <p className="text-amber-500 text-sm mt-2">⚠️ {setupResult.aviso}</p>
+              <p className="text-amber-500 text-sm mt-2">A senha foi configurada no servidor pela engenharia. Por segurança ela não é exibida nesta tela.</p>
             </AlertDescription>
           </Alert>
         )}
@@ -211,7 +204,7 @@ export default function LoginPage() {
         </Card>
 
         <p className="text-center text-xs text-muted-foreground mt-6">
-          Sistema de Gestão Industrial - Usinas agroindustrial
+          Plataforma web de supervisão · Modo industrial não comissionado
         </p>
       </div>
     </div>
