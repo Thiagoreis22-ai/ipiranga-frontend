@@ -25,6 +25,7 @@ import {
   X,
   ClipboardList,
   ChevronRight,
+  Network,
 } from "lucide-react";
 import { cn, formatDate } from "../lib/utils";
 
@@ -35,6 +36,12 @@ const navItems = [
     label: "Dashboard",
     path: "/dashboard",
     icon: LayoutDashboard,
+    roles: ["operator", "supervisor", "admin"],
+  },
+  {
+    label: "Conexão Industrial",
+    path: "/industrial",
+    icon: Network,
     roles: ["operator", "supervisor", "admin"],
   },
   {
