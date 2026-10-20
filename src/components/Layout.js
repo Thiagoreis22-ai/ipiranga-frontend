@@ -26,12 +26,19 @@ import {
   ClipboardList,
   ChevronRight,
   Network,
+  Factory,
 } from "lucide-react";
 import { cn, formatDate } from "../lib/utils";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const navItems = [
+  {
+    label: "Centro de Operações",
+    path: "/operations",
+    icon: Factory,
+    roles: ["operator", "supervisor", "admin"],
+  },
   {
     label: "Dashboard",
     path: "/dashboard",
