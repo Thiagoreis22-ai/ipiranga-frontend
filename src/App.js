@@ -37,7 +37,7 @@ const ProtectedRoute = ({ children, requireSupervisor = false }) => {
   }
 
   if (requireSupervisor && !isSupervisor) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/operations" replace />;
   }
 
   return <Layout>{children}</Layout>;
@@ -55,7 +55,7 @@ const PublicRoute = ({ children }) => {
   }
 
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to="/operations" replace />;
   }
 
   return children;
@@ -160,8 +160,8 @@ function AppRoutes() {
           </ProtectedRoute>
         }
       />
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      <Route path="/" element={<Navigate to="/operations" replace />} />
+      <Route path="*" element={<Navigate to="/operations" replace />} />
     </Routes>
   );
 }
