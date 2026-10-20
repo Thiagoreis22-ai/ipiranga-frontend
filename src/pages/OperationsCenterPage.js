@@ -332,7 +332,8 @@ export default function OperationsCenterPage(){
     let attempts=0;
     const connect=()=>{
       if(closed)return;
-      const base=(API || window.location.origin).replace(/\\/$/,"");
+      const rawBase=API || window.location.origin;
+      const base=rawBase.endsWith("/") ? rawBase.slice(0,-1) : rawBase;
       const url=base.replace(/^http/i,"ws")+"/api/ops/ws";
       setLiveChannel("CONECTANDO");
       try{socket=new WebSocket(url);}catch(_){setLiveChannel("INDISPONIVEL");return;}
