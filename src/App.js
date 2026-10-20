@@ -7,6 +7,7 @@ import Layout from "./components/Layout";
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 import IndustrialConnectionPage from "./pages/IndustrialConnectionPage";
+import COIPage from "./pages/COIPage";
 import AssistantPage from "./pages/AssistantPage";
 import OccurrencesPage from "./pages/OccurrencesPage";
 import ReportsPage from "./pages/ReportsPage";
@@ -78,6 +79,10 @@ function AppRoutes() {
             <DashboardPage />
           </ProtectedRoute>
         }
+      />
+      <Route
+        path="/coi"
+        element={<ProtectedRoute><COIPage /></ProtectedRoute>}
       />
       <Route
         path="/industrial"
